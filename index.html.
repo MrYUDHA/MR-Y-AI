@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR.Y AI — Intelligent Agent</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#080809;color:#fff;
+  font-family:Arial,sans-serif;
+  min-height:100vh;overflow-x:hidden
+}
+:root{--red:#ff263d;--panel:#141417}
+.app{display:flex;min-height:100vh}
+.sidebar{
+  width:245px;background:#101013;
+  border-right:1px solid #29292e;
+  padding:25px 17px;flex-shrink:0
+}
+.logo{font-size:25px;font-weight:900;color:#ff3048}
+.logo span{color:white}
+.tagline{font-size:10px;color:#777;margin-top:6px;letter-spacing:2px}
+.menu-title{font-size:10px;color:#777;margin:35px 10px 12px}
+.menu button{
+  display:block;width:100%;padding:14px;
+  text-align:left;border:0;border-radius:10px;
+  background:transparent;color:#aaa;
+  margin:5px 0;cursor:pointer;font-size:14px
+}
+.menu button:hover,.menu button.active{
+  background:#29151a;color:#ff5265
+}
+.bottom{margin-top:55px;padding:15px;border:1px solid #29292e;border-radius:12px}
+.status{color:#44e69a;font-size:12px;margin-top:8px}
+.main{flex:1;min-width:0;padding:25px 4%}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.topbar h2{font-size:21px}
+.topbar p{font-size:12px;color:#777;margin-top:6px}
+.profile{border:1px solid #333;border-radius:30px;padding:10px 15px;font-size:12px}
+.hero{
+  min-height:400px;display:flex;align-items:center;
+  justify-content:center;flex-direction:column;
+  position:relative;text-align:center;overflow:hidden
+}
+.fire{
+  position:relative;width:220px;height:220px;
+  display:flex;align-items:center;justify-content:center;
+  margin:30px auto 15px
+}
+.fire:before{
+  content:"";position:absolute;inset:5px;border-radius:50%;
+  background:radial-gradient(circle,#ff342b44,transparent 68%);
+  box-shadow:0 0 70px #ff1d343d;
+  animation:pulse 2s infinite alternate
+}
+.fire canvas{position:absolute;width:100%;height:100%}
+.core{
+  z-index:2;width:85px;height:85px;border-radius:50%;
+  background:radial-gradient(circle at 35% 25%,#fff,#ff9b3e 20%,#ed172f 55%,#43000c);
+  box-shadow:0 0 35px #ff263d,0 0 90px #ff263d88;
+  animation:float 3s ease-in-out infinite
+}
+@keyframes pulse{to{transform:scale(1.16);opacity:.6}}
+@keyframes float{50%{transform:translateY(-9px) scale(1.06)}}
+.hero h1{font-size:32px;letter-spacing:2px}
+.hero h1 span{color:var(--red)}
+.hero p{color:#888;margin-top:10px;font-size:13px}
+.cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:15px;margin:10px 0 25px
+}
+.card{
+  background:linear-gradient(145deg,#19191e,#101013);
+  border:1px solid #29292f;border-radius:15px;
+  padding:20px
+}
+.card small{color:#888}
+.card h3{font-size:19px;margin-top:12px}
+.card p{font-size:11px;color:#777;margin-top:7px}
+.workspace{
+  background:#111114;border:1px solid #29292f;
+  border-radius:16px;padding:20px
+}
+.workspace h3{margin-bottom:15px}
+.chatlog{
+  min-height:100px;max-height:230px;overflow:auto;
+  color:#aaa;font-size:13px;line-height:1.7
+}
+.message{padding:10px;margin:8px 0;border-radius:10px;background:#1c1c22}
+.message.user{border-left:3px solid #ff3048}
+.message.ai{border-left:3px solid #555}
+.chat-input{display:flex;gap:10px;margin-top:15px}
+.chat-input input{
+  flex:1;min-width:0;background:#080809;
+  border:1px solid #333;color:white;
+  padding:14px;border-radius:10px;outline:none
+}
+.chat-input button{
+  border:0;background:#e9233b;color:white;
+  padding:0 20px;border-radius:10px;cursor:pointer
+}
+.notice{color:#777;font-size:11px;margin-top:12px}
+@media(max-width:750px){
+  .sidebar{width:70px;padding:15px 7px}
+  .logo{font-size:12px;text-align:center}
+  .tagline,.menu-title,.menu button span,.bottom{display:none}
+  .menu button{text-align:center;font-size:18px;padding:15px 3px}
+  .main{padding:20px 13px}
+  .cards{grid-template-columns:1fr}
+  .hero{min-height:350px}
+  .hero h1{font-size:25px}
+  .profile{font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">MR.Y <span>AI</span></div>
+  <div class="tagline">INTELLIGENCE SYSTEM</div>
+  <div class="menu-title">MAIN MENU</div>
+  <nav class="menu">
+    <button class="active">⌂ <span>Dashboard</span></button>
+    <button>✧ <span>AI Assistant</span></button>
+    <button>⌘ <span>Coding Agent</span></button>
+    <button>▤ <span>Projects</span></button>
+    <button>▧ <span>File Manager</span></button>
+    <button>⚙ <span>Settings</span></button>
+  </nav>
+  <div class="bottom">
+    <small>AI SYSTEM STATUS</small>
+    <div class="status">● Interface Online</div>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div>
+      <h2>Dashboard</h2>
+      <p>Welcome to your intelligent workspace.</p>
+    </div>
+    <div class="profile">◉ MR.Y USER</div>
+  </header>
+
+  <section class="hero">
+    <div class="fire">
+      <canvas id="flame"></canvas>
+      <div class="core"></div>
+    </div>
+    <h1>MR.Y <span>INTELLIGENCE</span></h1>
+    <p>Your ideas. Your intelligence. Your AI Agent.</p>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <small>AI ENGINE</small><h3>Gemini</h3>
+      <p>Primary AI provider</p>
+    </div>
+    <div class="card">
+      <small>AGENT MODE</small><h3>All Purpose</h3>
+      <p>Assistant + Coding Agent</p>
+    </div>
+    <div class="card">
+      <small>WORKSPACE</small><h3>Ready</h3>
+      <p>Waiting for your command</p>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <h3>✧ Talk to MR.Y AI</h3>
+    <div class="chatlog" id="chatlog">
+      <div class="message ai">
+        Halo! Saya MR.Y AI. Apa yang ingin kamu kerjakan hari ini?
+      </div>
+    </div>
+    <div class="chat-input">
+      <input id="prompt" placeholder="Ketik perintah atau pertanyaan...">
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
+    <div class="notice">
+      Prototype antarmuka — koneksi AI akan kita aktifkan pada tahap backend.
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+// ANIMASI PARTIKEL API
+const canvas=document.getElementById("flame");
+const ctx=canvas.getContext("2d");
+let particles=[];
+function resize(){
+  const r=canvas.getBoundingClientRect();
+  canvas.width=r.width*devicePixelRatio;
+  canvas.height=r.height*devicePixelRatio;
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+}
+resize();
+window.addEventListener("resize",resize);
+
+function createParticle(){
+  const w=canvas.clientWidth,h=canvas.clientHeight;
+  return {
+    x:w/2+(Math.random()-.5)*55,
+    y:h*.72,
+    vx:(Math.random()-.5)*1.4,
+    vy:-1.2-Math.random()*2.5,
+    life:1,
+    size:3+Math.random()*8
+  };
+}
+function animate(){
+  const w=canvas.clientWidth,h=canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+  for(let i=0;i<5;i++)particles.push(createParticle());
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    p.life-=.012;
+    p.size*=.985;
+    const gradient=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size*2);
+    gradient.addColorStop(0,"rgba(255,245,170,"+p.life+")");
+    gradient.addColorStop(.35,"rgba(255,75,25,"+p.life+")");
+    gradient.addColorStop(1,"rgba(255,0,30,0)");
+    ctx.fillStyle=gradient;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size*2,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// CHAT DEMO
+function sendMessage(){
+  const input=document.getElementById("prompt");
+  const log=document.getElementById("chatlog");
+  const value=input.value.trim();
+  if(!value)return;
+  const msg=document.createElement("div");
+  msg.className="message user";
+  msg.textContent=value;
+  log.appendChild(msg);
+  const reply=document.createElement("div");
+  reply.className="message ai";
+  reply.textContent="Perintah diterima. Koneksi AI akan diaktifkan setelah backend MR.Y AI selesai disiapkan.";
+  log.appendChild(reply);
+  input.value="";
+  log.scrollTop=log.scrollHeight;
+}
+document.getElementById("prompt").addEventListener("keydown",e=>{
+  if(e.key==="Enter")sendMessage();
+});
+</script>
+</body>
+</html>
